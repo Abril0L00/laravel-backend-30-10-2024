@@ -33,5 +33,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Todo::class);        
     }
+
+    public function tasks(){
+        return $this->belongsToMany(Task::class)
+        ->using(TaskUser::class);
+        /* ESTE PARA TRAER DATOS DE LA TABLA PIVOTE
+        return $this->belongsToMany(Task::class)
+        ->withTimestamps()->withPivot('name');
+        **/
+    }
          
 }

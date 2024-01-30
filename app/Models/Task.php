@@ -17,4 +17,23 @@ class Task extends Model
         'todo_id',
         'state_id',
     ];
+
+    public function todo(){
+        return belongsTo(Todo::class,'todo_id','id');
+    }
+
+    public function state(){
+        return belongsTo(State::class,'state_id','id');
+    }
+
+    public function steps(){
+        return hasMany(Step::class,'task_id','id');
+    }
+
+    public function users(){
+        /*FORMA BÁSICA SIN NECESIDAD DE CREAR RELACIÓN PIVOTE*/
+        /* return $this->belongsToMany(User::class); */
+        return $this->belongsToMany(User::class)
+        ->using(TaskUser::class);
+    }
 }
